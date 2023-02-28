@@ -1,15 +1,14 @@
 package com.discaptraining.apidiscapuser.repository;
 
-import com.discaptraining.apidiscapuser.domain.entity.User;
+import com.discaptraining.apidiscapuser.domain.entity.DiscapUser;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-public interface IUserRepository extends CrudRepository<User, Integer> {
+public interface IUserRepository extends CrudRepository<DiscapUser, Integer> {
 
-    User findByPersonID(int cedula);
+    DiscapUser findByPersonID(int cedula);
 
-    List<User> getUserByGender(boolean gender);
+    List<DiscapUser> getUserByGender(boolean gender);
 
 }

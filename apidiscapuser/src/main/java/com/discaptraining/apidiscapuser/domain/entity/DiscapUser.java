@@ -7,8 +7,8 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "User")
-public class User {
+@Table(name = "discapUser")
+public class DiscapUser {
 
     @Getter
     @Setter
@@ -41,7 +41,6 @@ public class User {
     @Getter
     @Setter
     @Enumerated(EnumType.STRING)
-    @Column(name = "gender")
     private PersonGender gender;
 
     @Getter
@@ -57,6 +56,7 @@ public class User {
     @Getter
     @Setter
     @Column(name = "registerType")
+    @Enumerated(EnumType.STRING)
     private UserType registerType;
 
     @ManyToOne

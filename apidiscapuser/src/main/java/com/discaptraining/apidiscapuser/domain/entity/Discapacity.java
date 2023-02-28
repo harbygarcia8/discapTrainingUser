@@ -6,9 +6,8 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.UUID;
 
-    @Entity
+@Entity
     @Table(name = "Discapacity")
     public class Discapacity {
 
@@ -27,7 +26,7 @@ import java.util.UUID;
 
 
     @OneToMany(mappedBy = "discapacity")
-    private List<User> user;
+    private List<DiscapUser> user;
 
 
 }
