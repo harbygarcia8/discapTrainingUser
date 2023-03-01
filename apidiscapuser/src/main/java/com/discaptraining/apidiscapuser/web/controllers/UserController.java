@@ -1,43 +1,47 @@
 package com.discaptraining.apidiscapuser.web.controllers;
 
+import com.discaptraining.apidiscapuser.domain.entity.DiscapUser;
+import com.discaptraining.apidiscapuser.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
-@RequestMapping("api/discaptraininguser/users")
+@RequestMapping("/users")
 public class UserController {
 
-
-    //TODO: SE DEBE TENER EN CUENTA QUE SE DEBE USAR OBJETO USUARIO
+    @Autowired
+    private UserService userService;
 
     @GetMapping("/all")
-    public String getAllUsers() {
-        return "Estos son todos los users";
+    public List<DiscapUser> getAllUsers() {
+        return userService.getAllUsers();
     }
 
     @GetMapping("/{document}")
-    public String getByDocument(@PathVariable String document) {
-        return "obteniendo segun el documento de identidad";
+    public DiscapUser getByDocument(@PathVariable(name = "document") int document) {
+        return userService.getUserByPersonId(document);
     }
-
 
     @PostMapping("/new")
     public String newUser() {
         return "se ha creado un nuevo usuario";
     }
 
-    @PutMapping("/updateUser/{document}")
-    public String updateUser(@PathVariable String document){
-        return "se ha actualizado el usuario segun el documento";
+    @PutMapping("/update/{id}")
+    public void updateUser(@PathVariable(name = "id") int id){
+        userService.updateUserById(id);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public void deleteUser(@PathVariable(name = "id") int id){
+        userService.deleteUserById(id);
     }
 
     @PatchMapping("/parchUser/{document}")
     public String updateUserByElement(@PathVariable String document){
-        return "se ha actualizado la informacion del usuario";
-    }
-
-    @DeleteMapping("/deleteUser/{document}")
-    public String deleteUser(@PathVariable String document){
-        return "se ha borrado el usuario";
+        return "se ha actualizado solo un dato de la informacion del usuario";
     }
 
 }
