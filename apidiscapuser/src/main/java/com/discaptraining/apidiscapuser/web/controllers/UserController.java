@@ -1,28 +1,39 @@
 package com.discaptraining.apidiscapuser.web.controllers;
 
+import com.discaptraining.apidiscapuser.domain.entity.DiscapUser;
+import com.discaptraining.apidiscapuser.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("api/discaptraininguser/users")
 public class UserController {
 
+    @Autowired
+    private UserService userService;
 
     //TODO: SE DEBE TENER EN CUENTA QUE SE DEBE USAR OBJETO USUARIO
 
-    @GetMapping("/all")
-    public String getAllUsers() {
-        return "Estos son todos los users";
+    @GetMapping
+    public ResponseEntity<Object> getAllUsers() {
+        return userService.getAllUserPerson();
     }
 
     @GetMapping("/{document}")
-    public String getByDocument(@PathVariable String document) {
-        return "obteniendo segun el documento de identidad";
+    public ResponseEntity<Object> getByDocument(@PathVariable int document) {
+        return userService.getUserByPersonId(document);
     }
 
 
-    @PostMapping("/new")
-    public String newUser() {
-        return "se ha creado un nuevo usuario";
+    @PostMapping
+    public ResponseEntity<Object> newUser(@RequestBody DiscapUser newDiscapUser) {
+        return userService.saveDiscapUser(newDiscapUser);
+    }
+
+    @DeleteMapping("/{document}")
+    public ResponseEntity<Object> deleteUser(@PathVariable int document){
+        return userService.deleteDiscapUser(document);
     }
 
     @PutMapping("/updateUser/{document}")
@@ -35,10 +46,7 @@ public class UserController {
         return "se ha actualizado la informacion del usuario";
     }
 
-    @DeleteMapping("/deleteUser/{document}")
-    public String deleteUser(@PathVariable String document){
-        return "se ha borrado el usuario";
-    }
+
 
 }
 

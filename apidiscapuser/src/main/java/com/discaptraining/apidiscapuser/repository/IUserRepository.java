@@ -7,7 +7,8 @@ import java.util.List;
 
 public interface IUserRepository extends CrudRepository<DiscapUser, Integer> {
 
-    DiscapUser findByPersonID(int cedula);
+    List<DiscapUser> findByPersonID(int cedula);
+    List<DiscapUser> finDiscapUserList();
 
     List<DiscapUser> getUserByGender(boolean gender);
 
