@@ -2,33 +2,59 @@ package com.discaptraining.apidiscapuser.response;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
-import lombok.Getter;
-import lombok.Setter;
 import org.springframework.http.HttpStatus;
 
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class RespuestaPersonalizada {
 
-    @Getter
-    @Setter
+
     private String codigo;
-    @Getter
-    @Setter
+
     private String mensaje;
-    @Getter
-    @Setter
+
     private int estado;
-    @Getter
-    @Setter
-    private Object objectoRespuesta;
+
+    private Object objetoRespuesta;
 
     public RespuestaPersonalizada() {
     }
 
     public RespuestaPersonalizada(String mensaje, HttpStatus estado) {
-        super();
         this.mensaje = mensaje;
         this.estado = estado.value();
         this.codigo = estado.name();
+    }
+
+
+    public String getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
+    }
+
+    public String getMensaje() {
+        return mensaje;
+    }
+
+    public void setMensaje(String mensaje) {
+        this.mensaje = mensaje;
+    }
+
+    public int getEstado() {
+        return estado;
+    }
+
+    public void setEstado(int estado) {
+        this.estado = estado;
+    }
+
+    public Object getObjetoRespuesta() {
+        return objetoRespuesta;
+    }
+
+    public void setObjetoRespuesta(Object objetoRespuesta) {
+        this.objetoRespuesta = objetoRespuesta;
     }
 }

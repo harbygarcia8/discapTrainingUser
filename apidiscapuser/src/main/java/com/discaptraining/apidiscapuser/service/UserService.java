@@ -23,9 +23,8 @@ public class UserService {
         ResponseEntity<Object> respuesta;
         try {
             userRepository.save(bodyDiscapUsers);
-            RespuestaPersonalizada res = new RespuestaPersonalizada(
-                    "Creacion del cliente fue exitosa", HttpStatus.OK);
-            res.setObjectoRespuesta(bodyDiscapUsers);
+            RespuestaPersonalizada res = new RespuestaPersonalizada("Creacion del cliente fue exitosa", HttpStatus.OK);
+            res.setObjetoRespuesta(bodyDiscapUsers);
             respuesta = ResponseEntity.ok(HttpStatus.OK);
             respuesta = new ResponseEntity<>(res, HttpStatus.OK);
         } catch (Exception e) {
@@ -41,10 +40,10 @@ public class UserService {
     public ResponseEntity<Object> getUserByPersonId(int userID){
         ResponseEntity<Object> respuesta;
         try {
-            List<DiscapUser> discapUsers = userRepository.findByPersonID(userID);
+            List<DiscapUser> discapUsers = userRepository.findDiscapUsers(userID);
             RespuestaPersonalizada res = new RespuestaPersonalizada(
                     "Consulta del cliente fue exitosa", HttpStatus.OK);
-            res.setObjectoRespuesta(discapUsers);
+            res.setObjetoRespuesta(discapUsers);
             respuesta = ResponseEntity.ok(HttpStatus.OK);
             respuesta = new ResponseEntity<>(res, HttpStatus.OK);
         } catch (Exception e) {
@@ -61,10 +60,10 @@ public class UserService {
     public ResponseEntity<Object> getAllUserPerson(){
         ResponseEntity<Object> respuesta;
         try {
-            List<DiscapUser> discapUsers = userRepository.finDiscapUserList();
+            List<DiscapUser> discapUsers = userRepository.findDiscapUserList();
             RespuestaPersonalizada res = new RespuestaPersonalizada(
                     "Consulta de los clientes fue exitosa", HttpStatus.OK);
-            res.setObjectoRespuesta(discapUsers);
+            res.setObjetoRespuesta(discapUsers);
             respuesta = ResponseEntity.ok(HttpStatus.OK);
             respuesta = new ResponseEntity<>(res, HttpStatus.OK);
         } catch (Exception e) {
@@ -84,7 +83,7 @@ public class UserService {
             userRepository.deleteById(userID);
             RespuestaPersonalizada res = new RespuestaPersonalizada(
                     "Eliminacion del cliente fue exitosa", HttpStatus.OK);
-            res.setObjectoRespuesta(new Object());
+            res.setObjetoRespuesta(new Object());
             respuesta = ResponseEntity.ok(HttpStatus.OK);
             respuesta = new ResponseEntity<>(res, HttpStatus.OK);
         } catch (Exception e) {

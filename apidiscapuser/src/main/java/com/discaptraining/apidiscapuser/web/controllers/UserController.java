@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("api/discaptraininguser/users")
+@RequestMapping("/users")
 public class UserController {
 
     @Autowired
@@ -15,7 +15,7 @@ public class UserController {
 
     //TODO: SE DEBE TENER EN CUENTA QUE SE DEBE USAR OBJETO USUARIO
 
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<Object> getAllUsers() {
         return userService.getAllUserPerson();
     }
