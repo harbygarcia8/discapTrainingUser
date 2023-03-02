@@ -7,7 +7,7 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "discapUser")
+@Table(name = "discap_user")
 public class DiscapUser {
 
     @Getter
@@ -19,7 +19,7 @@ public class DiscapUser {
 
     @Getter
     @Setter
-    @Column(name="documentType")
+    @Column(name="document_type")
     private String documentType;
 
     @Getter
@@ -35,7 +35,7 @@ public class DiscapUser {
 
     @Getter
     @Setter
-    @Column(name = "lastName")
+    @Column(name = "last_name")
     private String surname;
 
     @Getter
@@ -55,7 +55,7 @@ public class DiscapUser {
 
     @Getter
     @Setter
-    @Column(name = "registerType")
+    @Column(name = "register_type")
     @Enumerated(EnumType.STRING)
     private UserType registerType;
 

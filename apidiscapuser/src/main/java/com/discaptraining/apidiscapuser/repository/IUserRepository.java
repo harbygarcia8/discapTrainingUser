@@ -11,7 +11,7 @@ import java.util.List;
 public interface IUserRepository extends CrudRepository<DiscapUser, Integer> {
     @Query(value = "select * from discap_user where document = '?'", nativeQuery = true)
     List<DiscapUser> findDiscapUsers(int cedula);
-    @Query(value = "select * from discap_user", nativeQuery = true)
+    @Query(value = "select id, active, document_type, email, gender, name, password, document, phone, register_type, last_name, id_discapacity from discap_user", nativeQuery = true)
     List<DiscapUser> findDiscapUserList();
 
 

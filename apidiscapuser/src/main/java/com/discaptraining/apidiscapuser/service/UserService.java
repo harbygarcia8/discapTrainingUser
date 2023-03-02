@@ -67,7 +67,7 @@ public class UserService {
             respuesta = ResponseEntity.ok(HttpStatus.OK);
             respuesta = new ResponseEntity<>(res, HttpStatus.OK);
         } catch (Exception e) {
-            // logger.error(e);
+            System.out.println(e);
             respuesta = ResponseEntity.ok(HttpStatus.BAD_REQUEST);
             respuesta = new ResponseEntity<>(
                     "Disculpa tenemos un error tratando de consultar los clientes",
