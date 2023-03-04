@@ -61,6 +61,9 @@ public class UserService {
         ResponseEntity<Object> respuesta;
         try {
             List<DiscapUser> discapUsers = userRepository.findDiscapUserList();
+            discapUsers.forEach(user -> {
+                System.out.println("usuario consultado: "+ user.getEmail());
+            });
             RespuestaPersonalizada res = new RespuestaPersonalizada(
                     "Consulta de los clientes fue exitosa", HttpStatus.OK);
             res.setObjetoRespuesta(discapUsers);
