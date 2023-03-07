@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "discap_user")
@@ -47,10 +48,9 @@ public class DiscapUser {
     @Enumerated(EnumType.STRING)
     private UserType registerType;
 
-    @ManyToOne
-    @JoinColumn(name = "id_discapacity", insertable = false, updatable = false)
-    private Discapacity discapacity;
-
+    @ManyToMany
+    @JoinColumn(name = "discapacitys", insertable = false, updatable = false)
+    private List<Discapacity> discapacitys;
 
     @Column(name = "password")
     private String password;
@@ -131,12 +131,12 @@ public class DiscapUser {
         this.registerType = registerType;
     }
 
-    public Discapacity getDiscapacity() {
-        return discapacity;
+    public List<Discapacity> getDiscapacitys() {
+        return discapacitys;
     }
 
-    public void setDiscapacity(Discapacity discapacity) {
-        this.discapacity = discapacity;
+    public void setDiscapacitys(List<Discapacity> discapacitys) {
+        this.discapacitys = discapacitys;
     }
 
     public String getPassword() {

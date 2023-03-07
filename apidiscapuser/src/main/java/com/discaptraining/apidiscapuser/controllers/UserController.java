@@ -1,4 +1,4 @@
-package com.discaptraining.apidiscapuser.web.controllers;
+package com.discaptraining.apidiscapuser.controllers;
 
 import com.discaptraining.apidiscapuser.domain.entity.DiscapUser;
 import com.discaptraining.apidiscapuser.service.UserService;
@@ -31,17 +31,17 @@ public class UserController {
         return userService.saveDiscapUser(newDiscapUser);
     }
 
-    @DeleteMapping("/{document}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteUser(@PathVariable int document){
         return userService.deleteDiscapUser(document);
     }
 
-    @PutMapping("/updateUser/{document}")
+    @PutMapping("/{document}")
     public String updateUser(@PathVariable String document){
         return "se ha actualizado el usuario segun el documento";
     }
 
-    @PatchMapping("/parchUser/{document}")
+    @PatchMapping("/{document}")
     public String updateUserByElement(@PathVariable String document){
         return "se ha actualizado la informacion del usuario";
     }

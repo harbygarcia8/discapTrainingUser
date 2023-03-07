@@ -1,8 +1,6 @@
 package com.discaptraining.apidiscapuser.domain.entity;
 
-import com.discaptraining.apidiscapuser.domain.enums.Discapacities;
-import lombok.Getter;
-import lombok.Setter;
+
 
 import javax.persistence.*;
 import java.util.List;
@@ -11,22 +9,32 @@ import java.util.List;
     @Table(name = "Discapacity")
     public class Discapacity {
 
-    @Getter
-    @Setter
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id_discapacity")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
     private Integer id;
 
-    @Getter
-    @Setter
-    @Enumerated(EnumType.STRING)
-    @Column(name = "discapacity")
-    private Discapacities discapacity;
+
+    @Column(name = "type_discapacity")
+    private String typeDiscapacity;
 
 
-    @OneToMany(mappedBy = "discapacity")
-    private List<DiscapUser> user;
 
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getTypeDiscapacity() {
+        return typeDiscapacity;
+    }
+
+    public void setTypeDiscapacity(String typeDiscapacity) {
+        this.typeDiscapacity = typeDiscapacity;
+    }
 }
