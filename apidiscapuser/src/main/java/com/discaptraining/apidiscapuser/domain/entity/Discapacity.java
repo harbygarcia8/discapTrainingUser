@@ -10,7 +10,11 @@ import java.util.List;
     public class Discapacity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+<<<<<<< HEAD
+    @Column(name = "id_discapacity")
+=======
     @Column(name = "id", nullable = false)
+>>>>>>> master
     private Integer id;
 
     @Column(name = "type_discapacity")

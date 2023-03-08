@@ -27,7 +27,7 @@ public class DiscapUser {
 
 
     @Column(name = "document")
-    private Integer personID;
+    private Integer personId;
 
     @Column(name = "name")
     private String name;
