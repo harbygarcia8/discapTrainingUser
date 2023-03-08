@@ -3,7 +3,6 @@ package com.discaptraining.apidiscapuser.domain.entity;
 import com.discaptraining.apidiscapuser.domain.enums.PersonGender;
 import com.discaptraining.apidiscapuser.domain.enums.UserType;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -27,7 +26,7 @@ public class DiscapUser {
 
 
     @Column(name = "document")
-    private Integer personId;
+    private Integer personID;
 
     @Column(name = "name")
     private String name;

@@ -88,8 +88,4 @@ public class UserController {
     public String updateUserByElement(@PathVariable String document){
         return "se ha actualizado la informacion del usuario";
     }
-
-
-
 }
-
