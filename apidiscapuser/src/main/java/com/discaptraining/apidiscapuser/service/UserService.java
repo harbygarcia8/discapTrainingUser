@@ -3,15 +3,18 @@ package com.discaptraining.apidiscapuser.service;
 import com.discaptraining.apidiscapuser.domain.entity.DiscapUser;
 import com.discaptraining.apidiscapuser.repository.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+<<<<<<< HEAD
+=======
+
+>>>>>>> master
 
 import java.util.List;
 
 @Service
 public class UserService {
 
+<<<<<<< HEAD
     public List<DiscapUser> getAllUsers(){
         return (List<DiscapUser>) userRepository.findAll();
     }
@@ -28,6 +31,25 @@ public class UserService {
 
     public DiscapUser getUserByEmail(String email) {
         return userRepository.findByEmail(email);
+=======
+    @Autowired
+    private IUserRepository userRepository;
+
+    public List<DiscapUser> getAllUserPerson(){
+        return userRepository.findDiscapUserList();
+    }
+    public List<DiscapUser> getUserByPersonId(int personId){
+        return userRepository.findDiscapUser(personId);
+    }
+
+    public DiscapUser saveDiscapUser(DiscapUser bodyDiscapUsers){
+           return userRepository.save(bodyDiscapUsers);
+    }
+
+
+    public void deleteDiscapUser(int id){
+        userRepository.deleteById(id);
+>>>>>>> master
     }
 
     public ResponseEntity<Object> updateUserById(Integer id) {

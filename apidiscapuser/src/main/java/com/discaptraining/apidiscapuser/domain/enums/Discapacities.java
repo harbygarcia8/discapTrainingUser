@@ -7,4 +7,5 @@ public enum Discapacities {
     ESPINA_BIFIDA,
     DISTROFIA,
     AMPUTACION
+
 }

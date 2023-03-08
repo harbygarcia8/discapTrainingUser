@@ -3,73 +3,155 @@ package com.discaptraining.apidiscapuser.domain.entity;
 import com.discaptraining.apidiscapuser.domain.enums.PersonGender;
 import com.discaptraining.apidiscapuser.domain.enums.UserType;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
-@Table(name = "discapUser")
+@Table(name = "discap_user")
+@Getter
+@Setter
 public class DiscapUser {
 
-    @Getter
-    @Setter
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "id", nullable = false)
     private Integer id;
 
-    @Getter
-    @Setter
-    @Column(name="documentType")
+
+    @Column(name = "document_type")
     private String documentType;
 
-    @Getter
-    @Setter
+
     @Column(name = "document")
     private Integer personId;
 
-
-    @Getter
-    @Setter
     @Column(name = "name")
     private String name;
 
-    @Getter
-    @Setter
-    @Column(name = "lastName")
+    @Column(name = "last_name")
     private String surname;
 
-    @Getter
-    @Setter
     @Enumerated(EnumType.STRING)
     private PersonGender gender;
 
-    @Getter
-    @Setter
     @Column(name = "phone")
     private String phone;
 
-    @Getter
-    @Setter
-    @Column(name="email")
+    @Column(name = "email")
     private String email;
 
-    @Getter
-    @Setter
-    @Column(name = "registerType")
+    @Column(name = "register_type")
     @Enumerated(EnumType.STRING)
     private UserType registerType;
 
-    @ManyToOne
-    @JoinColumn(name = "id_discapacity", insertable = false, updatable = false)
-    private Discapacity discapacity;
+    @ManyToMany
+    @JoinColumn(name = "discapacitys", insertable = false, updatable = false)
+    private List<Discapacity> discapacitys;
 
-    @Getter
-    @Setter
-    @Column(name="password")
+    @Column(name = "password")
     private String password;
-    @Getter
-    @Setter
+
     @Column(name = "active")
     private boolean active;
 
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getDocumentType() {
+        return documentType;
+    }
+
+    public void setDocumentType(String documentType) {
+        this.documentType = documentType;
+    }
+
+    public Integer getPersonID() {
+        return personID;
+    }
+
+    public void setPersonID(Integer personID) {
+        this.personID = personID;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public PersonGender getGender() {
+        return gender;
+    }
+
+    public void setGender(PersonGender gender) {
+        this.gender = gender;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public UserType getRegisterType() {
+        return registerType;
+    }
+
+    public void setRegisterType(UserType registerType) {
+        this.registerType = registerType;
+    }
+
+    public List<Discapacity> getDiscapacitys() {
+        return discapacitys;
+    }
+
+    public void setDiscapacitys(List<Discapacity> discapacitys) {
+        this.discapacitys = discapacitys;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
 }
