@@ -6,15 +6,11 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-    @Table(name = "Discapacity")
-    public class Discapacity {
+@Table(name = "Discapacity")
+public class Discapacity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-<<<<<<< HEAD
-    @Column(name = "id_discapacity")
-=======
     @Column(name = "id", nullable = false)
->>>>>>> master
     private Integer id;
 
     @Column(name = "type_discapacity")
