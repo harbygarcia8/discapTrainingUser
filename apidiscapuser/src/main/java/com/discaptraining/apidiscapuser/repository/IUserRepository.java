@@ -12,7 +12,7 @@ public interface IUserRepository extends CrudRepository<DiscapUser, Integer> {
     @Query(value = "select * from schema_discap.discap_user where document = ?1", nativeQuery = true)
     List<DiscapUser> findDiscapUsers(int cedula);
     @Query(value = "select d.id as id, d.document_type as document_type,d.document as document , d.name as name, d.last_name as last_name, d.gender as gender, " +
-            "d.phone as phone,d.email as email, d.register_type as register_type, d.id_discapacity as id_discapacity, d.password as password, d.active as active FROM schema_discap.discap_user d", nativeQuery = true)
+            "d.phone as phone,d.email as email, d.register_type as register_type, d.password as password, d.active as active FROM schema_discap.discap_user d", nativeQuery = true)
     List<DiscapUser> findDiscapUserList();
 
 }
