@@ -8,19 +8,13 @@ import java.util.List;
 @Entity
     @Table(name = "Discapacity")
     public class Discapacity {
-
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
 
-
     @Column(name = "type_discapacity")
     private String typeDiscapacity;
-
-
-
 
     public Integer getId() {
         return id;
