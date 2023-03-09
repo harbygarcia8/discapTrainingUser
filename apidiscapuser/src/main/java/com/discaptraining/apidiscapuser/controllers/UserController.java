@@ -56,6 +56,7 @@ public class UserController {
             customResponse.setResponseObject(newDiscapUser);
             response = new ResponseEntity<>(customResponse, HttpStatus.OK);
 
+
         } catch (Exception e) {
             response = new ResponseEntity<>("Disculpa tenemos un error tratando de crear el cliente" + newDiscapUser, HttpStatus.BAD_REQUEST);
         }
@@ -63,25 +64,26 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Object> deleteUser(@PathVariable int id) {
-        ResponseEntity<Object> response;
-        try {
+    public void deleteUser(@PathVariable int id) {
+
             userService.deleteDiscapUser(id);
-            CustomResponse customResponse = new CustomResponse(
-                    "Eliminacion del usuario con id " + id + " fue exitosa", HttpStatus.OK);
-            customResponse.setResponseObject(new Object());
-            response = new ResponseEntity<>(customResponse, HttpStatus.OK);
-        } catch (Exception e) {
-            response = new ResponseEntity<>(
-                    "Disculpa tenemos un error tratando de eliminar el cliente:" + id,
-                    HttpStatus.BAD_REQUEST);
-        }
-        return response;
+
     }
 
-    @PutMapping("/{document}")
-    public String updateUser(@PathVariable String document){
-        return "se ha actualizado el usuario segun el documento: " + document;
+    @PutMapping
+    public ResponseEntity<Object> updateUser(@RequestBody DiscapUser newDiscapUser){
+        ResponseEntity<Object> response;
+        try{
+            userService.saveDiscapUser(newDiscapUser);
+            CustomResponse customResponse = new CustomResponse("Actualizacion del cliente fue exitosa", HttpStatus.OK);
+            customResponse.setResponseObject(newDiscapUser);
+            response = new ResponseEntity<>(customResponse, HttpStatus.OK);
+
+
+        } catch (Exception e) {
+            response = new ResponseEntity<>("Disculpa tenemos un error tratando de actualizar el cliente" + newDiscapUser, HttpStatus.BAD_REQUEST);
+        }
+        return response;
     }
 
     @PatchMapping("/{document}")
