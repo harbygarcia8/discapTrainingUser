@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/users")
 public class UserController {
@@ -25,7 +26,7 @@ public class UserController {
         try{
             List<DiscapUser> discapUsers = userService.getAllUserPerson();
             CustomResponse customResponse = new CustomResponse("Consulta de los clientes fue exitosa", HttpStatus.OK);
-            customResponse.setResponseObject(discapUsers);
+            customResponse.setResults(discapUsers);
             response = new ResponseEntity<>(customResponse, HttpStatus.OK);
         } catch (Exception e) {
             response = new ResponseEntity<>("Error tratando de consultar los clientes",HttpStatus.BAD_REQUEST);
@@ -39,7 +40,7 @@ public class UserController {
         try{
             List<DiscapUser> discUsers = userService.getUserByPersonId(personId);;
             CustomResponse customResponse = new CustomResponse("Consulta del cliente exitosa: " + personId, HttpStatus.OK);
-            customResponse.setResponseObject(discUsers);
+            customResponse.setResults(discUsers);
             response = new ResponseEntity<>(customResponse, HttpStatus.OK);
         } catch (Exception e) {
             response = new ResponseEntity<>("No se pudo encontrar el cliente con la cédula: " + personId, HttpStatus.BAD_REQUEST);
@@ -53,7 +54,7 @@ public class UserController {
         try{
             userService.saveDiscapUser(newDiscapUser);
             CustomResponse customResponse = new CustomResponse("Creacion del cliente fue exitosa", HttpStatus.OK);
-            customResponse.setResponseObject(newDiscapUser);
+            customResponse.setResults(newDiscapUser);
             response = new ResponseEntity<>(customResponse, HttpStatus.OK);
 
 
@@ -71,17 +72,17 @@ public class UserController {
     }
 
     @PutMapping
-    public ResponseEntity<Object> updateUser(@RequestBody DiscapUser newDiscapUser){
+    public ResponseEntity<Object> updateUser(@RequestBody DiscapUser updateDiscapUser){
         ResponseEntity<Object> response;
         try{
-            userService.saveDiscapUser(newDiscapUser);
+            userService.saveDiscapUser(updateDiscapUser);
             CustomResponse customResponse = new CustomResponse("Actualizacion del cliente fue exitosa", HttpStatus.OK);
-            customResponse.setResponseObject(newDiscapUser);
+            customResponse.setResults(updateDiscapUser);
             response = new ResponseEntity<>(customResponse, HttpStatus.OK);
 
 
         } catch (Exception e) {
-            response = new ResponseEntity<>("Disculpa tenemos un error tratando de actualizar el cliente" + newDiscapUser, HttpStatus.BAD_REQUEST);
+            response = new ResponseEntity<>("Disculpa tenemos un error tratando de actualizar el cliente" + updateDiscapUser, HttpStatus.BAD_REQUEST);
         }
         return response;
     }

@@ -10,7 +10,7 @@ public class CustomResponse {
     private String code;
     private String message;
     private int state;
-    private Object responseObject;
+    private Object results;
 
     public CustomResponse() {}
 
@@ -44,11 +44,11 @@ public class CustomResponse {
         this.state = state;
     }
 
-    public Object getResponseObject() {
-        return responseObject;
+    public Object getresults() {
+        return results;
     }
 
-    public void setResponseObject(Object responseObject) {
-        this.responseObject = responseObject;
+    public void setResults(Object results) {
+        this.results = results;
     }
 }
