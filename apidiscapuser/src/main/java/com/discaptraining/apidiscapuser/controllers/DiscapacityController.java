@@ -1,6 +1,5 @@
 package com.discaptraining.apidiscapuser.controllers;
 
-import com.discaptraining.apidiscapuser.domain.entity.DiscapUser;
 import com.discaptraining.apidiscapuser.domain.entity.Discapacity;
 import com.discaptraining.apidiscapuser.response.CustomResponse;
 import com.discaptraining.apidiscapuser.service.DiscapacityService;
@@ -20,17 +19,48 @@ public class DiscapacityController {
     private DiscapacityService discapacityService;
 
     @GetMapping
-    public List<Discapacity> discapacityList(){
-        return (List<Discapacity>) discapacityService.discapacitiesAll();
+    public ResponseEntity<Object> discapacityList(){
+        ResponseEntity<Object> response;
+        try {
+            List<Discapacity> discapacities = (List<Discapacity>) discapacityService.discapacitiesAll();
+            CustomResponse customResponse = new CustomResponse("Consulta de las discapacidades exitosa", HttpStatus.OK);
+            customResponse.setResults(discapacities);
+            response = new ResponseEntity<>(customResponse, HttpStatus.OK);
+
+        }catch (Exception e){
+            response= new ResponseEntity<>("Error tratando de consultar discapacidades", HttpStatus.BAD_REQUEST);
+        }
+        return response;
     }
+
+
     @GetMapping("/{id}")
-    public Optional<Discapacity> getByIdDiscapacity(@PathVariable int id){
-        return discapacityService.discapacityById(id);
+    public ResponseEntity<Object> getByIdDiscapacity(@PathVariable int id){
+        ResponseEntity<Object> response;
+        try{
+            Optional<Discapacity> discapacities = discapacityService.discapacityById(id);;
+            CustomResponse customResponse = new CustomResponse("Consulta de discapacidades fue exitosa"+ id, HttpStatus.OK);
+            customResponse.setResults(discapacities);
+            response = new ResponseEntity<>(customResponse,HttpStatus.OK);
+
+        }catch (Exception e){
+            response = new ResponseEntity<>("Error tratando de consultar discapacidades" + id, HttpStatus.BAD_REQUEST);
+        }
+        return response;
     }
 
     @PostMapping
     public ResponseEntity<Object> newUser(@RequestBody Discapacity newDiscapacity) {
-        return discapacityService.saveDiscapacity(newDiscapacity);
+        ResponseEntity<Object> response;
+        try {
+            discapacityService.saveDiscapacity(newDiscapacity);
+            CustomResponse customResponse = new CustomResponse(" Creacion de la discapacidad fue exitosa", HttpStatus.OK);
+            customResponse.setResults(newDiscapacity);
+            response = new ResponseEntity<>(customResponse,HttpStatus.OK);
+        } catch (Exception e){
+            response = new ResponseEntity<>("Disculpa tenemos un problema creando la discapacidad" + newDiscapacity, HttpStatus.BAD_REQUEST);
+        }
+        return response;
     }
 
     @PutMapping
@@ -46,4 +76,5 @@ public class DiscapacityController {
         }
         return response;
     }
+
 }
