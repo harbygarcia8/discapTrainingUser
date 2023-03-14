@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/users")
 public class UserController {
@@ -25,7 +26,7 @@ public class UserController {
         try{
             List<DiscapUser> discapUsers = userService.getAllUserPerson();
             CustomResponse customResponse = new CustomResponse("Consulta de los clientes fue exitosa", HttpStatus.OK);
-            customResponse.setResponseObject(discapUsers);
+            customResponse.setResults(discapUsers);
             response = new ResponseEntity<>(customResponse, HttpStatus.OK);
         } catch (Exception e) {
             response = new ResponseEntity<>("Error tratando de consultar los clientes",HttpStatus.BAD_REQUEST);
@@ -39,7 +40,7 @@ public class UserController {
         try{
             List<DiscapUser> discUsers = userService.getUserByPersonId(personId);;
             CustomResponse customResponse = new CustomResponse("Consulta del cliente exitosa: " + personId, HttpStatus.OK);
-            customResponse.setResponseObject(discUsers);
+            customResponse.setResults(discUsers);
             response = new ResponseEntity<>(customResponse, HttpStatus.OK);
         } catch (Exception e) {
             response = new ResponseEntity<>("No se pudo encontrar el cliente con la cédula: " + personId, HttpStatus.BAD_REQUEST);
@@ -53,8 +54,9 @@ public class UserController {
         try{
             userService.saveDiscapUser(newDiscapUser);
             CustomResponse customResponse = new CustomResponse("Creacion del cliente fue exitosa", HttpStatus.OK);
-            customResponse.setResponseObject(newDiscapUser);
+            customResponse.setResults(newDiscapUser);
             response = new ResponseEntity<>(customResponse, HttpStatus.OK);
+
 
         } catch (Exception e) {
             response = new ResponseEntity<>("Disculpa tenemos un error tratando de crear el cliente" + newDiscapUser, HttpStatus.BAD_REQUEST);
@@ -63,25 +65,26 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Object> deleteUser(@PathVariable int id) {
-        ResponseEntity<Object> response;
-        try {
+    public void deleteUser(@PathVariable int id) {
+
             userService.deleteDiscapUser(id);
-            CustomResponse customResponse = new CustomResponse(
-                    "Eliminacion del usuario con id " + id + " fue exitosa", HttpStatus.OK);
-            customResponse.setResponseObject(new Object());
-            response = new ResponseEntity<>(customResponse, HttpStatus.OK);
-        } catch (Exception e) {
-            response = new ResponseEntity<>(
-                    "Disculpa tenemos un error tratando de eliminar el cliente:" + id,
-                    HttpStatus.BAD_REQUEST);
-        }
-        return response;
+
     }
 
-    @PutMapping("/{document}")
-    public String updateUser(@PathVariable String document){
-        return "se ha actualizado el usuario segun el documento: " + document;
+    @PutMapping
+    public ResponseEntity<Object> updateUser(@RequestBody DiscapUser updateDiscapUser){
+        ResponseEntity<Object> response;
+        try{
+            userService.saveDiscapUser(updateDiscapUser);
+            CustomResponse customResponse = new CustomResponse("Actualizacion del cliente fue exitosa", HttpStatus.OK);
+            customResponse.setResults(updateDiscapUser);
+            response = new ResponseEntity<>(customResponse, HttpStatus.OK);
+
+
+        } catch (Exception e) {
+            response = new ResponseEntity<>("Disculpa tenemos un error tratando de actualizar el cliente" + updateDiscapUser, HttpStatus.BAD_REQUEST);
+        }
+        return response;
     }
 
     @PatchMapping("/{document}")

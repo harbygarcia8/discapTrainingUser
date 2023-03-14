@@ -30,7 +30,7 @@ public class DiscapacityService {
         try {
             discapacityRepository.save(bodyDiscapacity);
             CustomResponse res = new CustomResponse("Creacion de la discapacidad fue exitosa", HttpStatus.OK);
-            res.setResponseObject(bodyDiscapacity);
+            res.setResults(bodyDiscapacity);
             respuesta = ResponseEntity.ok(HttpStatus.OK);
             respuesta = new ResponseEntity<>(res, HttpStatus.OK);
         } catch (Exception e) {
