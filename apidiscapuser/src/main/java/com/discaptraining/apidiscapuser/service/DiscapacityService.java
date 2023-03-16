@@ -13,7 +13,6 @@ import java.util.Optional;
 
 @Service
 public class DiscapacityService {
-
     @Autowired
     private IDiscapacityRepository discapacityRepository;
 
@@ -25,23 +24,7 @@ public class DiscapacityService {
         return discapacityRepository.findAll();
     }
 
-    public ResponseEntity<Object> saveDiscapacity(@RequestBody Discapacity bodyDiscapacity){
-        ResponseEntity<Object> respuesta;
-        try {
-            discapacityRepository.save(bodyDiscapacity);
-            CustomResponse res = new CustomResponse("Creacion de la discapacidad fue exitosa", HttpStatus.OK);
-            res.setResults(bodyDiscapacity);
-            respuesta = ResponseEntity.ok(HttpStatus.OK);
-            respuesta = new ResponseEntity<>(res, HttpStatus.OK);
-        } catch (Exception e) {
-            // logger.error(e);
-            System.out.println(e);
-            respuesta = ResponseEntity.ok(HttpStatus.BAD_REQUEST);
-            respuesta = new ResponseEntity<>(
-                    "Disculpa tenemos un error tratando de crear la discapacidad",
-                    HttpStatus.BAD_REQUEST);
-
-        }
-        return respuesta;
+    public Discapacity saveDiscapacity(Discapacity bodyDiscapacity){
+        return discapacityRepository.save(bodyDiscapacity);
     }
 }
