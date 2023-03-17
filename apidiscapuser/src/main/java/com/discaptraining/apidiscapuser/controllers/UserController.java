@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -87,8 +88,19 @@ public class UserController {
         return response;
     }
 
-    @PatchMapping("/{document}")
-    public String updateUserByElement(@PathVariable String document){
-        return "se ha actualizado la informacion del usuario";
+    @PatchMapping("/{id}")
+    public ResponseEntity<Object> updateUserByFields(@PathVariable int id, @RequestBody Map<String, Object> fields){
+        ResponseEntity<Object> response;
+        try{
+            userService.updateUserByFields(id,fields);
+            CustomResponse customResponse = new CustomResponse(
+                    "La actualización del id:" + id + " y los siguientes campos "
+                            + fields + " fue exitosa", HttpStatus.OK);
+            customResponse.setResults(fields);
+            response = new ResponseEntity<>(customResponse, HttpStatus.OK);
+        }catch (Exception e) {
+            response = new ResponseEntity<>("El usuario con id:"+id+" o campo a modificar no existe", HttpStatus.BAD_REQUEST);
+        }
+        return response;
     }
 }
