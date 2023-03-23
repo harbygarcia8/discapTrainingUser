@@ -3,23 +3,18 @@ package com.discaptraining.apidiscapuser.service;
 import com.discaptraining.apidiscapuser.domain.entity.DiscapUser;
 import com.discaptraining.apidiscapuser.repository.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ReflectionUtils;
 
-
-import java.util.ArrayList;
+import java.lang.reflect.Field;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 @Service
 public class UserService {
-
     @Autowired
     private IUserRepository userRepository;
-    @Autowired
-    private PasswordEncoder bcryptEncoder;
-
 
     public List<DiscapUser> getAllUserPerson(){
         return userRepository.findDiscapUserList();
@@ -29,8 +24,6 @@ public class UserService {
     }
 
     public DiscapUser saveDiscapUser(DiscapUser bodyDiscapUsers){
-
-        bodyDiscapUsers.setPassword(bcryptEncoder.encode(bodyDiscapUsers.getPassword()));
         return userRepository.save(bodyDiscapUsers);
     }
 
@@ -38,18 +31,16 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
-
-    public UserDetails loadUserByUsername(String userEmail) throws UsernameNotFoundException {
-        DiscapUser user = userRepository.findByEmail(userEmail).get(0);
-        if (user == null) {
-            throw new UsernameNotFoundException("User not found with username: " + userEmail);
+    public DiscapUser updateUserByFields(int id, Map<String, Object> fields) {
+        Optional<DiscapUser> existingUser = userRepository.findById(id);
+        if(existingUser.isPresent()) {
+            fields.forEach((key, value) -> {
+                Field field = ReflectionUtils.findField(DiscapUser.class, key);
+                field.setAccessible(true);
+                ReflectionUtils.setField(field, existingUser.get(), value);
+            });
+            return userRepository.save(existingUser.get());
         }
-        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(),
-                new ArrayList<>());
+        return null;
     }
-
-
 }
-
-
-
