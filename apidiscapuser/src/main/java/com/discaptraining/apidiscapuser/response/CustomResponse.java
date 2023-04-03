@@ -4,9 +4,8 @@ import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import org.springframework.http.HttpStatus;
 
-@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
-public class CustomResponse {
 
+public class CustomResponse {
     private String code;
     private String message;
     private int state;

@@ -2,7 +2,6 @@ package com.discaptraining.apidiscapuser.security;
 
 import com.discaptraining.apidiscapuser.domain.entity.DiscapUser;
 import com.discaptraining.apidiscapuser.repository.IUserRepository;
-import com.discaptraining.apidiscapuser.response.CustomResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,7 +17,7 @@ public class DiscapUserDetailsService implements UserDetailsService {
     private IUserRepository userRepository;
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return new User("discap", "{noop}admin", new ArrayList<>());
+        return new User("hola@gmail.com", "{noop}1234", new ArrayList<>());
     }
 
     public DiscapUser saveUser(DiscapUser bodyDiscapUsers) {

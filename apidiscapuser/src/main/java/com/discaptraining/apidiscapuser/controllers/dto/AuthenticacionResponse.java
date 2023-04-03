@@ -1,17 +1,17 @@
 package com.discaptraining.apidiscapuser.controllers.dto;
 
 public class AuthenticacionResponse {
-    private String jwt;
+    private String access_token;
 
-    public AuthenticacionResponse(String jwt) {
-        this.jwt = jwt;
+    public AuthenticacionResponse(String access_token) {
+        this.access_token = access_token;
     }
 
-    public String getJwt() {
-        return jwt;
+    public String getAccess_token() {
+        return access_token;
     }
 
-    public void setJwt(String jwt) {
-        this.jwt = jwt;
+    public void setAccess_token(String access_token) {
+        this.access_token = access_token;
     }
 }
