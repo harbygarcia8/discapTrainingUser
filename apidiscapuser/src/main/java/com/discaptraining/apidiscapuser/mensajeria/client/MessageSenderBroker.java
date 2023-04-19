@@ -1,6 +1,6 @@
 package com.discaptraining.apidiscapuser.mensajeria.client;
 
-import com.discaptraining.apidiscapuser.config.ClientQueueConfig;
+import com.discaptraining.apidiscapuser.config.DiscapUserQueueConfig;
 import com.discaptraining.apidiscapuser.domain.entity.DiscapUser;
 import com.discaptraining.apidiscapuser.util.MessageSender;
 import com.discaptraining.apidiscapuser.util.gson.MapperJsonObjeto;
@@ -18,12 +18,12 @@ public class MessageSenderBroker implements MessageSender<DiscapUser> {
 
     private final RabbitTemplate rabbitTemplate;
     private final MapperJsonObjeto mapperJsonObjeto;
-    private final ClientQueueConfig clientQueueConfig;
+    private final DiscapUserQueueConfig discapUserQueueConfig;
 
-    public MessageSenderBroker(RabbitTemplate rabbitTemplate, MapperJsonObjeto mapperJsonObjeto, ClientQueueConfig clientQueueConfig) {
+    public MessageSenderBroker(RabbitTemplate rabbitTemplate, MapperJsonObjeto mapperJsonObjeto, DiscapUserQueueConfig discapUserQueueConfig) {
         this.rabbitTemplate = rabbitTemplate;
         this.mapperJsonObjeto = mapperJsonObjeto;
-        this.clientQueueConfig = clientQueueConfig;
+        this.discapUserQueueConfig = discapUserQueueConfig;
     }
 
     @Override
@@ -34,7 +34,7 @@ public class MessageSenderBroker implements MessageSender<DiscapUser> {
         if (!cuerpoMensaje.isPresent()) {
             return;
         }
-        rabbitTemplate.convertAndSend(clientQueueConfig.getExchangeName(), clientQueueConfig.getRoutingKeyName(), cuerpoMensaje.get());
+        rabbitTemplate.convertAndSend(discapUserQueueConfig.getExchangeName(), discapUserQueueConfig.getRoutingKeyName(), cuerpoMensaje.get());
     }
 
     private MessageProperties generarPropiedadesMensaje(String idMessageSender ) {
