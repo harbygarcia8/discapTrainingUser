@@ -17,6 +17,7 @@ public class DiscapUserDetailsService implements UserDetailsService {
     private IUserRepository userRepository;
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+//        DiscapUser user = userRepository.findDiscapUser()
         return new User("discap@gmail.com", "{noop}admin", new ArrayList<>());
     }
 
