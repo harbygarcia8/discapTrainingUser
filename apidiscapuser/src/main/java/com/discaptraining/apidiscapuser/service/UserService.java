@@ -2,6 +2,8 @@ package com.discaptraining.apidiscapuser.service;
 
 import com.discaptraining.apidiscapuser.domain.entity.DiscapUser;
 import com.discaptraining.apidiscapuser.repository.IUserRepository;
+import com.discaptraining.apidiscapuser.util.MessageSender;
+import lombok.ToString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ReflectionUtils;
@@ -16,6 +18,12 @@ public class UserService {
     @Autowired
     private IUserRepository userRepository;
 
+    private final MessageSender<DiscapUser> messageSenderClient;
+
+    public UserService(MessageSender<DiscapUser> messageSenderClient) {
+        this.messageSenderClient = messageSenderClient;
+    }
+
     public List<DiscapUser> getAllUserPerson(){
         return userRepository.findDiscapUserList();
     }
@@ -24,6 +32,7 @@ public class UserService {
     }
 
     public DiscapUser saveDiscapUser(DiscapUser bodyDiscapUsers){
+        messageSenderClient.execute(bodyDiscapUsers, (bodyDiscapUsers.getPersonID().toString()));
         return userRepository.save(bodyDiscapUsers);
     }
 
