@@ -33,8 +33,8 @@ public class AuthController {
     public ResponseEntity<AuthenticacionResponse> createToken(@RequestBody AuthenticationRequest request) {
         try
         {
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUserName(), request.getPassword()));
-            UserDetails userDetails = discapUserDetailsService.loadUserByUsername(request.getUserName());
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
+            UserDetails userDetails = discapUserDetailsService.loadUserByUsername(request.getEmail());
             String jwt = jwtUtil.generateToken(userDetails);
             return new ResponseEntity<>(new AuthenticacionResponse(jwt),HttpStatus.OK);
         } catch (BadCredentialsException e) {
