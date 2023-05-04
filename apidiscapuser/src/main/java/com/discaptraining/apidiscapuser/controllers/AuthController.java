@@ -5,6 +5,7 @@ import com.discaptraining.apidiscapuser.controllers.dto.AuthenticationRequest;
 import com.discaptraining.apidiscapuser.domain.entity.DiscapUser;
 import com.discaptraining.apidiscapuser.response.CustomResponse;
 import com.discaptraining.apidiscapuser.security.DiscapUserDetailsService;
+import com.discaptraining.apidiscapuser.util.MessageSender;
 import com.discaptraining.apidiscapuser.web.security.JWTUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,6 +30,12 @@ public class AuthController {
     @Autowired
     private JWTUtil jwtUtil;
 
+    private final MessageSender<DiscapUser> messageSenderClient;
+
+    public AuthController(MessageSender<DiscapUser> messageSenderClient) {
+        this.messageSenderClient = messageSenderClient;
+    }
+
     @PostMapping("/authenticate")
     public ResponseEntity<AuthenticacionResponse> createToken(@RequestBody AuthenticationRequest request) {
         try
@@ -45,7 +52,7 @@ public class AuthController {
     public ResponseEntity<Object> newUser(@RequestBody DiscapUser newDiscapUser) {
         ResponseEntity<Object> response;
         try{
-            discapUserDetailsService.saveUser(newDiscapUser);
+            messageSenderClient.execute(discapUserDetailsService.saveUser(newDiscapUser), (newDiscapUser.getPersonID().toString()));
             CustomResponse customResponse = new CustomResponse("Creacion del cliente fue exitosa", HttpStatus.OK);
             customResponse.setResults(newDiscapUser);
             response = new ResponseEntity<>(customResponse, HttpStatus.OK);
