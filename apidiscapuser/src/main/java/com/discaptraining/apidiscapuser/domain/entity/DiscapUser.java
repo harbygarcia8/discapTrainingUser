@@ -47,16 +47,14 @@ public class DiscapUser {
     @Enumerated(EnumType.STRING)
     private UserType registerType;
 
-    @ManyToMany
-    @JoinColumn(name = "discapacitys", insertable = false, updatable = false)
-    private List<Discapacity> discapacitys;
+    @Column(name = "discapacity")
+    private String discapacity;
 
     @Column(name = "password")
     private String password;
 
     @Column(name = "active")
     private boolean active;
-
 
     public Integer getId() {
         return id;
@@ -130,12 +128,12 @@ public class DiscapUser {
         this.registerType = registerType;
     }
 
-    public List<Discapacity> getDiscapacitys() {
-        return discapacitys;
+    public String getDiscapacity() {
+        return discapacity;
     }
 
-    public void setDiscapacitys(List<Discapacity> discapacitys) {
-        this.discapacitys = discapacitys;
+    public void setDiscapacity(String discapacity) {
+        this.discapacity = discapacity;
     }
 
     public String getPassword() {

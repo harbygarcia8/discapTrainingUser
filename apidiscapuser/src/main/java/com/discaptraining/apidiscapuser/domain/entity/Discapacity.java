@@ -13,6 +13,9 @@ public class Discapacity {
     @Column(name = "type_discapacity")
     private String typeDiscapacity;
 
+    @Column(name = "description_discapacity")
+    private String descriptionDiscapacity;
+
     public Integer getId() {
         return id;
     }
@@ -27,5 +30,13 @@ public class Discapacity {
 
     public void setTypeDiscapacity(String typeDiscapacity) {
         this.typeDiscapacity = typeDiscapacity;
+    }
+
+    public String getDescriptionDiscapacity() {
+        return descriptionDiscapacity;
+    }
+
+    public void setDescriptionDiscapacity(String descriptionDiscapacity) {
+        this.descriptionDiscapacity = descriptionDiscapacity;
     }
 }
