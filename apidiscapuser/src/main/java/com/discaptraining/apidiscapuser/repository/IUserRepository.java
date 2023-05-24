@@ -16,7 +16,7 @@ public interface IUserRepository extends CrudRepository<DiscapUser, Integer> {
             "d.phone as phone,d.email as email, d.register_type as register_type, d.password as password, d.active as active FROM schema_discap.discap_user d", nativeQuery = true)
     List<DiscapUser> findDiscapUserList();
 
-    @Query(value = "select * from schema_discap.discap_user where email = ?1", nativeQuery = true)
+    @Query(value = "select * from schema_discap.discap_user where email = ?", nativeQuery = true)
     Optional<DiscapUser> findDiscapUserByEmail(String email);
 
 }

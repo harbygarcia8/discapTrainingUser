@@ -3,7 +3,6 @@ package com.discaptraining.apidiscapuser.service;
 import com.discaptraining.apidiscapuser.domain.entity.DiscapUser;
 import com.discaptraining.apidiscapuser.repository.IUserRepository;
 import com.discaptraining.apidiscapuser.util.MessageSender;
-import lombok.ToString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ReflectionUtils;
@@ -30,6 +29,11 @@ public class UserService {
     public List<DiscapUser> getUserByPersonId(int personId){
         return userRepository.findDiscapUser(personId);
     }
+
+    public Optional<DiscapUser> getUserByEmail(String email){
+        return userRepository.findDiscapUserByEmail(email);
+    }
+
 
     public DiscapUser saveDiscapUser(DiscapUser bodyDiscapUsers){
         messageSenderClient.execute(bodyDiscapUsers, (bodyDiscapUsers.getPersonID().toString()));

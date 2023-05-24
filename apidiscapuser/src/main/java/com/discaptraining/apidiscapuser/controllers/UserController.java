@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -45,6 +46,21 @@ public class UserController {
             response = new ResponseEntity<>(customResponse, HttpStatus.OK);
         } catch (Exception e) {
             response = new ResponseEntity<>("No se pudo encontrar el cliente con la cédula: " + personId, HttpStatus.BAD_REQUEST);
+        }
+        return response;
+    }
+
+
+    @GetMapping("/email/{email}")
+    public ResponseEntity<Object> getByEmail(@PathVariable String email) {
+        ResponseEntity<Object> response;
+        try{
+            Optional<DiscapUser> discUsers = userService.getUserByEmail(email);
+            CustomResponse customResponse = new CustomResponse("Consulta del cliente exitosa: " + email, HttpStatus.OK);
+            customResponse.setResults(discUsers);
+            response = new ResponseEntity<>(customResponse, HttpStatus.OK);
+        } catch (Exception e) {
+            response = new ResponseEntity<>("No se pudo encontrar el cliente con el email: " + email, HttpStatus.BAD_REQUEST);
         }
         return response;
     }
